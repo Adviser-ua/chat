@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style xmlns="http://www.w3.org/1999/html">
+    .registerForm {
+        position: absolute;
+        left: 50%;
+        width: 50%;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+    <div id="registerForm">
+            {% if errors %}
+                {% for err in errors %}
+                <p>{{err}}</p>
+                {% endfor %}
+            {% endif %}
+        <form class="registerForm" method="post" action="{{ url_for('register') }}">
+            <input name="login" type="text" placeholder="*Логин" autofocus required>
+            </br>
+            <input name="password" type="password" placeholder="*Пароль" required>
+            </br>
+            <input name="passwordConfirm" type="password" placeholder="*Подтверждение пароля" required>
+            </br>
+            <input name="mail" type="email" placeholder="Почта" >
+            </br>
+            <input name="phone" type="text" placeholder="Телефон" >
+            </br>
+            <input type="submit" id="submit" value="Зарегистрировать">
+        </form>
+    </div>
+{% endblock %}

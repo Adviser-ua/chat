@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block style %}
+    <style>
+    #chatList{
+        position: absolute;
+        top: 170px;
+        left: 25%;
+    }
+    #find_chat{
+        position: absolute;
+        left: 25%;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="find_chat">
+        <form id="find_chat" class="" method="post" action="{{ url_for('find_chat') }}">
+                <input name="query" type="text" placeholder="название чата" required>
+                <input type="submit" id="submit" value="Найти">
+        </form>
+    </div>
+        <div id="chatList">
+            {% for chat in chats %}
+            <a href="{{ url_for('enter_to_chat', chat_id=chat.id) }}">Зайти в чат {{ chat.name }}</a>
+            <br/>
+            {% endfor %}
+        </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 55px;
+}
+#newMessage {
+    background-color: #2F444F;
+}
+#history {
+    position: absolute;
+    left: 25%;
+    width: 60%;
+    overflow-y: scroll;
+    height: 80%;
+    resize: inherit;
+}
+#members {
+    position: absolute;
+    right: 0;
+    width: 13%;
+    overflow-y: scroll;
+    height: 85%;
+}
+.loginForm {
+    position: absolute;
+    right: 5%;
+    top: 20px;
+}
+.newChatForm {
+    position: absolute;
+    right: 50%;
+    top: 20px;
+    height: 80px;
+}
+#header {
+    background-color: #2F444F;
+}
+#register {
+    position: absolute;
+    right: 1%;
+    top: 20px;
+}
+#myChats {
+    resize: both;
+    background-color: #4BA039;
+    position: absolute;
+    left: 10px;
+    width: 20%;
+    height: 80%;
+    overflow-y: scroll;
+}

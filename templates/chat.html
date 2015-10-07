@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ chat.name }} - {{ chat.id }}
+{% endblock %}
+{% block style %}
+
+<script>
+    setInterval('get_history({{chat.id}})', 5000);
+    get_history( {{ chat.id }} );
+    setInterval('get_members({{chat.id}})', 5000);
+    get_members( {{chat.id}} );
+</script>
+{% endblock %}
+{% block content %}
+    <div id="history">
+    </div>
+    <div id="members">
+    </div>
+    <div id="newMessage" class="footer">
+        <form id="new_chat" method="post" action="{{ url_for('send_mess') }}">
+            <fieldset id="inputs">
+                <input name="chat_id" type="hidden" value="{{chat.id}}">
+                {% if session.logged_in %}
+                    <input name="username" type="text" placeholder="Назовитесь" value="{{ username }}" disabled>
+                {% else %}
+                    <input name="username" type="text" placeholder="Назовитесь" value="{{session.username}}" >
+                {% endif %}
+                <input name="message" style="width: 80%" type="text" placeholder="Сообщение" autofocus required>
+                <input type="submit" id="submit" value="Отправить">
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

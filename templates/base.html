@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="{{ url_for('static', filename='js/jquery-1.11.3.js') }}"> </script>
+    <script src="{{ url_for('static', filename='js/MyScript.js') }}"> </script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/MyStyle.css') }}">
+    {% block style %}{% endblock %}
+</head>
+<body>
+    <div id="header" >
+        <div id="home">
+            <a href="/" ><img style="margin: 10px" src="{{ url_for('static', filename='Hangouts.png') }}" alt=" "></a>
+        </div>
+        {% if session.logged_in %}
+            <form id="new_chat" class="newChatForm" method="post" action="{{ url_for('new_chat') }}">
+                    <input name="subject" type="text" placeholder="Тема" required>
+                    <input type="submit" id="submit" value="Создать">
+            </form>
+        {% else %}
+            <a style="color: wheat">Что бы создать новый чат - авторизируйстесь</a>
+        {% endif %}
+
+    {% if not session.logged_in %}
+{#        <a href="{{ url_for('index') }}">log in</a>#}
+            <form id="login" class="loginForm" method="post" action="{{ url_for('index') }}">
+                {% if errors %}
+                    {% for err in errors %}
+                    <p>{{err}}<p>
+                    {% endfor %}
+                {% endif %}
+                <input name="login" type="text" placeholder="Логин" required>
+                <input name="password" type="password" placeholder="Пароль" required>
+                <input type="submit" id="submit" value="SingIn">
+            </form>
+            <form id="register" action="{{ url_for('register') }}">
+                <input type="submit" id="submit" value="SingUp">
+            </form>
+        {% else %}
+
+        <form id="register" action="{{ url_for('logout') }}">
+            <a href="#">{{session.username}}</a>
+            <input type="submit" id="submit" value="Logout">
+        </form>
+        {% endif %}
+        <br>
+        <hr>
+    </div>
+    <div id="myChats" class="myChats">
+    {% if session.logged_in %}
+        {% if chat %}
+            <a href="{{ url_for('addchat', chat_id=chat.id) }}">Добавить</a>
+        {% endif%}
+        <h3> Мои чаты:</h3>
+        <ul>
+        {% for mychat in mychats %}
+            <li>
+                <a href="{{ url_for('chat', chat_id=mychat.id) }}">{{mychat.name}}</a>
+                <a href="{{ url_for('delete_from_my_chats', chat_id=mychat.id ) }}">remove</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <h5> Что бы отобразить список чатов, пожалуйста авторизируйтесь.</h5>
+    {% endif %}
+    </div>
+
+    {% block content %}{% endblock %}
+</body>
+</html>
